@@ -6,12 +6,17 @@ require('dotenv').config();
 
 // -------------------- App Setup --------------------
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
 
 // -------------------- Routes --------------------
+app.get("/", (req, res) => {
+  res.send("GradGear API is running");
+});
+
+
 app.post('/api/infer', async (req, res) => {
   const prompt = req.body.prompt;
 
