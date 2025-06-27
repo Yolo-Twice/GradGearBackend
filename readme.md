@@ -1,1 +1,1 @@
-# Backend for the GradGear Frontend.
+# Backend for the GradGear starter gear app Frontend.
