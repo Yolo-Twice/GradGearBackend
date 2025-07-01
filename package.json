@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "seed": "node seed/seedRecommendedBudget.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
