@@ -4,6 +4,7 @@ import cors from 'cors';
 import axios from 'axios';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import RecommendedBudget from './models/recommendedBudget.js';
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -20,6 +21,18 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("GradGear API is running");
 });
+
+app.get("/api/budget", async (req, res) => {
+  console.log("✅ /api/budget route hit"); 
+  try {
+    const budgetData = await RecommendedBudget.find({});
+    res.json(budgetData);
+  } catch (err) {
+    console.error(" Failed to fetch budget data:", err.message);
+    res.status(500).json({ error: "Failed to retrieve budget data" });
+  }
+});
+
 
 
 app.post('/api/infer', async (req, res) => {
@@ -73,5 +86,5 @@ Do not add conversational fluff or greetings. Format your response using clean H
 
 // -------------------- Start Server --------------------
 app.listen(PORT, () => {
-  console.log(`✅ GradGear GROQ backend is running at http://localhost:${PORT}`);
+  console.log(`✅ GradGear GROQ backend is running at http://localhost:${PORT} | PID: ${process.pid} `);
 });
