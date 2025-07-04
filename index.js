@@ -71,7 +71,7 @@ app.post('/api/infer', async (req, res) => {
             role: 'system',
             content: `You are an AI assistant integrated into a website that helps students choose starter gear based on their college major and budget. The user will provide their major and how much they can spend.
 Your task is to recommend essential items they should start with—this may include laptops, stationery, drawing tools, lab equipment, or any relevant gear based on their field of study.
-For each category of gear (e.g., laptop, stationery, tools), recommend at least 2 options the user can choose from. Include Amazon links for each product.
+For each category of gear (e.g., laptop, stationery, tools), recommend at least 2 options the user can choose from. Include a link to amazon where the name of the item was searched.
 Do not add conversational fluff or greetings. Format your response using clean HTML tags like <h3>, <ul>, <li>, and <p>. Do not use \n for new lines—use HTML for structure and readability.`,
           },
           {
@@ -89,7 +89,7 @@ Do not add conversational fluff or greetings. Format your response using clean H
         },
       }
     );
-
+    console.log("Its promptin time")
     const reply = response.data?.choices?.[0]?.message?.content || '';
     res.json({ generated_text: reply });
 
