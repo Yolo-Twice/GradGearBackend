@@ -5,6 +5,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import RecommendedBudget from './models/recommendedBudget.js';
+import postRemarks from './models/postRemarks.js';
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -20,6 +21,23 @@ app.use(express.json());
 // -------------------- Routes --------------------
 app.get("/", (req, res) => {
   res.send("GradGear API is running");
+});
+app.post("/api/feedback", async (req, res) => {
+  const { remark } = req.body;
+  console.log("✅ /api/feedback route hit");
+
+  if (!remark || typeof remark !== 'string' || remark.trim().length < 2) {
+    return res.status(400).json({ error: "Invalid or empty remark" });
+  }
+
+  try {
+    const newFeedback = new postRemarks({ remark: remark.trim() });
+    await newFeedback.save();
+    res.status(201).json({ message: "Feedback saved successfully" });
+  } catch (err) {
+    console.error("❌ Failed to save feedback:", err.message);
+    res.status(500).json({ error: "Server error saving feedback" });
+  }
 });
 
 app.get("/api/budget", async (req, res) => {
