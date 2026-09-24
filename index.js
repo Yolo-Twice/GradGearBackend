@@ -65,7 +65,7 @@ app.post('/api/infer', async (req, res) => {
     const response = await axios.post(
       'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: 'llama-3.1-8b-instant',
+        model: 'qwen/qwen3.8-27b',
         messages: [
           {
             role: 'system',
@@ -79,8 +79,8 @@ Do not add conversational fluff or greetings. Format your response using clean H
             content: prompt.trim(), // Promt from frontend is here.
           },
         ],
-        temperature: 0.7,
-        max_tokens: 1024,
+        temperature: 0.6,
+        max_tokens: 2048,
       },
       {
         headers: {
